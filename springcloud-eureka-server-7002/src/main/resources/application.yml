@@ -1,0 +1,18 @@
+server:
+  port: 7002
+eureka:
+  instance:
+    hostname: eureka7002.com # Eureka服务端的名字
+    # 使用IP进行注册
+    prefer-ip-address: true
+    #自定义实例跳转连接
+    status-page-url: http://eureka7001.com
+  client:
+    fetch-registry: false # 由于注册中心的职责就是维护服务实例，它并不需要去检索服务，所以设置为false
+    register-with-eureka: false # 由于该应用为注册中心，所有设置为false代表不向注册中心注册自己
+
+    service-url: # 监控页面地址
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/,http://eureka7001.com:7001/eureka/
+spring:
+  application:
+    name: eureka-server-cluster
